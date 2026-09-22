@@ -13,7 +13,11 @@ public interface CategoryService {
     void save(CategoryDTO categoryDTO);
 
     /*
-    * 分类分页查询
-    * */
+     * 分类分页查询
+     * */
     PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /*
+     * 根据id删除分类*/
+    void deleteById(long id);
 }
