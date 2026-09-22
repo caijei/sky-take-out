@@ -22,10 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    /*
+    * 新增分类
+    * */
     @PostMapping
     @ApiOperation("新增分类")
     public Result save(@RequestBody CategoryDTO categoryDTO) {
         categoryService.save(categoryDTO);
         return Result.success();
     }
+
 }

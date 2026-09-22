@@ -17,6 +17,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    /**
+     * 新增分类
+     * @param categoryDTO
+     */
     @Override
     public void save(CategoryDTO categoryDTO) {
 
