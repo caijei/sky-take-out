@@ -70,6 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    /*根据id删除分类*/
     public void deleteById(long id) {
         //根据id查询分类是否关联了菜品，如果关联了就抛出异常
         Integer count = dishMapper.countByCategoryId(id);
@@ -85,5 +86,38 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         categoryMapper.DeleteById(id);
+    }
+
+    @Override
+    /*修改分类*/
+    public void update(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDTO,category);
+
+        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateUser(BaseContext.getCurrentId());
+
+        categoryMapper.update(category);
+    }
+
+    @Override
+    /*启用或禁用分类*/
+    public void startOrStop(Integer status, Long id) {
+
+        Category  category = new Category();
+        category.setStatus(status);
+        category.setId(id);
+
+        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateUser(BaseContext.getCurrentId());
+
+        categoryMapper.update(category);
+    }
+
+    @Override
+    /*根据类型查询分类*/
+    public List<Category> list(Integer type) {
+        List<Category> categoryList = categoryMapper.list(type);
+        return categoryList;
     }
 }
