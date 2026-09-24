@@ -14,4 +14,6 @@ public interface DishService {
 
     /*新增菜品和对应的口味*/
     void saveWithFlavor(DishDTO dishDTO);
+    /*根据id集合批量删除菜品*/
+    void deleteBatch(List<Long> ids);
 }
