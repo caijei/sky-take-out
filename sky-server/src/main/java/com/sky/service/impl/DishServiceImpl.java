@@ -15,6 +15,7 @@ import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,5 +94,13 @@ public class DishServiceImpl implements DishService {
         }*/
         dishFlavorMapper.deleteByDishIds(ids);
         dishMapper.deleteByIds(ids);
+    }
+
+    @Override
+    public void startOrStop(long id, Integer status) {
+        Dish dish = new Dish();
+        dish.setId(id);
+        dish.setStatus(status);
+        dishMapper.update(dish);
     }
 }

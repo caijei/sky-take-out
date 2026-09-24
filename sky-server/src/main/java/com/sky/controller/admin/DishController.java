@@ -48,4 +48,12 @@ public class DishController {
         dishService.deleteBatch(ids);
         return Result.success();
     }
+    /*修改菜品的售卖状态*/
+    @PostMapping("/status/{status}")
+    @ApiOperation(value ="菜品起售，停售")
+    public Result startOrStop(long id, @PathVariable Integer status){
+        log.info("设置菜品的售卖状态");
+        dishService.startOrStop(id, status);
+        return Result.success();
+    }
 }
