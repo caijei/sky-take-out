@@ -6,8 +6,10 @@ import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +56,21 @@ public class DishController {
     public Result startOrStop(long id, @PathVariable Integer status){
         log.info("设置菜品的售卖状态");
         dishService.startOrStop(id, status);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value="根据id查询菜品")
+    public Result<DishVO> getDishById(@PathVariable Long id){
+        log.info("根据id查询菜品, {}",id);
+        DishVO dishVO = dishService.getDishById(id);
+        return Result.success(dishVO);
+    }
+
+    @PutMapping
+    @ApiOperation(value = "修改菜品")
+    public Result updateDish(@RequestBody DishDTO dishDTO){
+        dishService.updateDish(dishDTO);
         return Result.success();
     }
 }
