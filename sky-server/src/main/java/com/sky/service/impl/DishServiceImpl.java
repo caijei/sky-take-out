@@ -96,7 +96,7 @@ public class DishServiceImpl implements DishService {
         dishFlavorMapper.deleteByDishIds(ids);
         dishMapper.deleteByIds(ids);
     }
-
+    //启用或禁用菜品
     @Override
     public void startOrStop(long id, Integer status) {
         Dish dish = new Dish();
@@ -104,7 +104,7 @@ public class DishServiceImpl implements DishService {
         dish.setStatus(status);
         dishMapper.update(dish);
     }
-
+    //根据id查询菜品
     @Override
     public DishVO getDishById(Long id) {
         DishVO dishVO = new DishVO();
@@ -114,7 +114,7 @@ public class DishServiceImpl implements DishService {
         dishVO.setFlavors(flavors);
         return dishVO;
     }
-
+    //修改菜品
     @Override
     @Transactional
     public void updateDish(DishDTO dishDTO) {
@@ -133,5 +133,11 @@ public class DishServiceImpl implements DishService {
             }
         }
 
+    }
+    //根据分类id查询菜品
+    @Override
+    public List<Dish> getDishByCategoryId(Long categoryId) {
+        List<Dish> dishList = dishMapper.selectByCategory(categoryId);
+        return dishList;
     }
 }
