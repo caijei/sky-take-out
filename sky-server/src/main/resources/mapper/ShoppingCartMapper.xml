@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sky.mapper.ShoppingCartMapper">
+    <select id="select" resultType="com.sky.entity.ShoppingCart">
+        select * from shopping_cart
+        <where>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="dishId != null">
+                and dish_id = #{dishId}
+            </if>
+            <if test="setmealId != null">
+                and setmeal_id = #{setmealId}
+            </if>
+            <if test="dishFlavor != null">
+                and dish_flavor = #{dishFlavor}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <update id="update" parameterType="ShoppingCart">
+        update shopping_cart
+        <set>
+            <if test="name != null"> name = #{name},</if>
+            <if test="image != null"> image = #{image},</if>
+            <if test="userId != null"> user_id = #{userId},</if>
+            <if test="dishId != null"> dish_id = #{dishId},</if>
+            <if test="setmealId != null"> setmeal_id = #{setmealId},</if>
+            <if test="dishFlavor != null"> dish_flavor = #{dishFlavor},</if>
+            <if test="number != null"> number = #{number},</if>
+            <if test="amount != null"> amount = #{amount},</if>
+            <if test="createTime != null"> create_time = #{createTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>
