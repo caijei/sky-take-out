@@ -38,7 +38,10 @@
                 status = #{status},
             </if>
             <if test="deliveryTime != null">
-                delivery_time = #{deliveryTime}
+                delivery_time = #{deliveryTime},
+            </if>
+            <if test="deliveryStatus != null">
+                delivery_status = #{deliveryStatus}
             </if>
         </set>
         where id = #{id}

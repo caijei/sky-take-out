@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Mapper
 public interface OrderMapper {
@@ -38,9 +39,28 @@ public interface OrderMapper {
             "checkout_time = #{check_out_time} where number = #{orderNumber}")
     void updateStatus(Integer orderStatus, Integer orderPaidStatus, LocalDateTime check_out_time, String orderNumber);
 
-
+    /**
+     *查询历史订单
+     * @param ordersPageQueryDTO
+     * @return
+     */
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
 
+    /**
+     * 根据id查询订单
+     * @param id
+     * @return
+     */
     @Select("select * from orders where id = #{id}")
     OrderVO getById(Long id);
+
+    /**
+     * 根据status统计相同订单状态的数量
+     * @param status
+     * @return
+     */
+    @Select("select count(id) from orders where status = #{status}")
+    Integer countStatus(Integer status);
+    @Select("select * from orders where status = #{status} and order_time < #{time}")
+    List<Orders> getBystatusAndOrdertime(Integer status, LocalDateTime time);
 }
