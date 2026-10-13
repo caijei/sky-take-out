@@ -473,6 +473,28 @@ public class OrderServiceImpl implements OrderService {
         orders.setId(id);
         orderMapper.update(orders);
     }
+
+    /**
+     * 用户开始催单
+     * @param id
+     */
+    @Override
+    public void reminderOrder(Long id) {
+        //查询订单是否存在
+        Orders orders =  orderMapper.getById(id);
+        if(orders == null){
+            throw new OrderBusinessException(MessageConstant.ORDER_NOT_FOUND);
+        }
+
+        Map map = new HashMap();
+        map.put("type", 2);//消息类型，1表示来单提醒,2表示用户催单
+        map.put("orderId", orders.getId());
+        map.put("content", "订单号：" + orders.getNumber());
+
+        //通过WebSocket实现来单提醒，向客户端浏览器推送消息
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
+    }
+
     /**
      * 检查客户的收货地址是否超出配送范围
      * @param address
